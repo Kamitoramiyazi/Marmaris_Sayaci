@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marmaris Sayacı</title>
+    <!-- Tailwind CSS CDN'i -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts (Inter) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Temel stil ayarları */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000000; /* Tam siyah arka plan */
+            color: #FFFF00; /* Ana metin rengi sarı */
+        }
+
+        /* Sayaç kartları için özel stil */
+        .counter-card {
+            background-color: #1a1a1a; /* Siyahtan biraz açık bir kart arka planı */
+            border: 1px solid #FFFF00; /* Sarı çerçeve */
+            border-radius: 0.75rem; /* Köşeleri yuvarlatma */
+            padding: 1.5rem; /* 24px */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(255, 255, 0, 0.1); /* Hafif sarı gölge */
+        }
+
+        /* Sarı arttırma butonu */
+        .yellow-btn {
+            background-color: #FFFF00; /* Sarı arka plan */
+            color: #000000; /* Siyah yazı (daha iyi okunabilirlik için) */
+            font-weight: 700; /* Kalın yazı */
+            padding: 0.5rem 1.5rem; /* 8px 24px */
+            border-radius: 0.5rem; /* Köşeleri yuvarlatma */
+            transition: all 0.2s ease-in-out;
+            border: none;
+            cursor: pointer;
+        }
+
+        .yellow-btn:hover {
+            background-color: #E6E600; /* Hover durumunda biraz koyu sarı */
+            transform: scale(1.05); /* Hafif büyüme efekti */
+        }
+
+        /* Sayaç adı */
+        .counter-name {
+            font-size: 1.875rem; /* 30px */
+            font-weight: 600; /* Yarı kalın */
+            color: #FFFF00; /* Sarı */
+            text-transform: capitalize; /* İlk harfi büyük */
+        }
+
+        /* Sayaç değeri */
+        .counter-value {
+            font-size: 4.5rem; /* 72px */
+            font-weight: 700; /* Kalın */
+            color: #FACC15; /* Biraz daha koyu bir sarı tonu (yellow-500) */
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen w-full flex items-center justify-center p-4">
+
+    <div class="w-full max-w-6xl">
+        <!-- Başlık -->
+        <h1 class="text-5xl font-bold text-center mb-10 text-yellow-300">
+            Marmaris Sayacı
+        </h1>
+
+        <!-- 5 Sayaç için Flexbox Yapısı -->
+        <div class="flex flex-row flex-wrap justify-center gap-6">
+            
+            <!-- Sayaç 1: sarı -->
+            <div class="counter-card w-full md:w-auto">
+                <h2 class="counter-name">sarı</h2>
+                <span id="counter-sari" class="counter-value">0</span>
+                <button id="btn-sari" class="yellow-btn">MUZ</button>
+            </div>
+
+            <!-- Sayaç 2: kutli -->
+            <div class="counter-card w-full md:w-auto">
+                <h2 class="counter-name">kutli</h2>
+                <span id="counter-kutli" class="counter-value">0</span>
+                <button id="btn-kutli" class="yellow-btn">MUZ</button>
+            </div>
+
+            <!-- Sayaç 3: başkan -->
+            <div class="counter-card w-full md:w-auto">
+                <h2 class="counter-name">başkan</h2>
+                <span id="counter-baskan" class="counter-value">0</span>
+                <button id="btn-baskan" class="yellow-btn">MUZ</button>
+            </div>
+
+            <!-- Sayaç 4: ogır -->
+            <div class="counter-card w-full md:w-auto">
+                <h2 class="counter-name">ogır</h2>
+                <span id="counter-ogir" class="counter-value">0</span>
+                <button id="btn-ogir" class="yellow-btn">MUZ</button>
+            </div>
+
+            <!-- Sayaç 5: eno -->
+            <div class="counter-card w-full md:w-auto">
+                <h2 class="counter-name">eno</h2>
+                <span id="counter-eno" class="counter-value">0</span>
+                <button id="btn-eno" class="yellow-btn">MUZ</button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Sayaçların isimlerini bir dizi olarak tutalım
+            const counterNames = ['sari', 'kutli', 'baskan', 'ogir', 'eno'];
+
+            // Her bir sayaç için gerekli işlemleri yapalım
+            counterNames.forEach(name => {
+                // Gerekli HTML elementlerini seçelim
+                const display = document.getElementById(`counter-${name}`);
+                const button = document.getElementById(`btn-${name}`);
+                
+                // localStorage için benzersiz bir anahtar (key) oluşturalım
+                const storageKey = `counter_${name}`;
+
+                // Sayacın mevcut değerini localStorage'dan yükleyelim.
+                // Değer yoksa veya geçersizse 0 olarak başlatalım.
+                let count = parseInt(localStorage.getItem(storageKey)) || 0;
+                
+                // Ekrandaki değeri yüklenen değerle güncelleyelim
+                display.textContent = count;
+
+                // Butona tıklanma olayını ekleyelim
+                button.addEventListener('click', () => {
+                    count++; // Değeri 1 arttır
+                    display.textContent = count; // Ekrandaki değeri güncelle
+                    
+                    // Yeni değeri localStorage'a kaydet
+                    localStorage.setItem(storageKey, count);
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+
+
+
