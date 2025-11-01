@@ -4,150 +4,329 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Marmaris Sayacı</title>
-    <!-- Tailwind CSS CDN'i -->
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts (Inter) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
-    
     <style>
-        /* Temel stil ayarları */
+        /* Temel Sayfa Stili */
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000000; /* Tam siyah arka plan */
-            color: #FFFF00; /* Ana metin rengi sarı */
+            background-color: #0F0F0F; /* Siyaha yakın koyu gri */
         }
-
-        /* Sayaç kartları için özel stil */
+        
+        /* Sayaç Kartı Stili - Orijinal (Saran) Düzen */
         .counter-card {
-            background-color: #1a1a1a; /* Siyahtan biraz açık bir kart arka planı */
-            border: 1px solid #FFFF00; /* Sarı çerçeve */
-            border-radius: 0.75rem; /* Köşeleri yuvarlatma */
-            padding: 1.5rem; /* 24px */
+            background-color: #1A1A1A; /* Hafif daha açık bir koyu renk */
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 16px; /* 24px'den 16px'e küçültüldü */
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 0 4px 10px rgba(255, 255, 0, 0.1); /* Hafif sarı gölge */
+            gap: 12px; /* 16px'den 12px'e küçültüldü */
+            /* min-width: 200px; KALDIRILDI - Küçülebilmeleri için */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
-        /* Sarı arttırma butonu */
+        /* Sayaç İsmi Stili - Orijinal Punto */
+        .counter-name {
+            /* font-size: 20px; KALDIRILDI (Tailwind ile yönetilecek) */
+            font-weight: 600;
+            color: #E0E0E0; /* Tam beyaz değil, hafif kırık beyaz */
+            text-transform: capitalize;
+        }
+
+        /* Sayaç Değeri Stili - Orijinal Punto */
+        .counter-value {
+            /* font-size: 60px; KALDIRILDI (Tailwind ile yönetilecek) */
+            font-weight: 700;
+            color: #FACC15; /* Sarı */
+            line-height: 1;
+        }
+
+        /* Sarı Buton Stili */
         .yellow-btn {
-            background-color: #FFFF00; /* Sarı arka plan */
-            color: #000000; /* Siyah yazı (daha iyi okunabilirlik için) */
-            font-weight: 700; /* Kalın yazı */
-            padding: 0.5rem 1.5rem; /* 8px 24px */
-            border-radius: 0.5rem; /* Köşeleri yuvarlatma */
-            transition: all 0.2s ease-in-out;
+            background-color: #FACC15; /* Sarı */
+            color: #1A1A1A; /* Koyu renk yazı */
+            font-weight: 600;
+            font-size: 16px;
+            padding: 10px 24px;
+            border-radius: 8px;
             border: none;
             cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
         .yellow-btn:hover {
-            background-color: #E6E600; /* Hover durumunda biraz koyu sarı */
-            transform: scale(1.05); /* Hafif büyüme efekti */
+            background-color: #FBBF24; /* Biraz daha koyu sarı */
         }
 
-        /* Sayaç adı */
-        .counter-name {
-            font-size: 1.875rem; /* 30px */
-            font-weight: 600; /* Yarı kalın */
-            color: #FFFF00; /* Sarı */
-            text-transform: capitalize; /* İlk harfi büyük */
-        }
-
-        /* Sayaç değeri */
-        .counter-value {
-            font-size: 4.5rem; /* 72px */
-            font-weight: 700; /* Kalın */
-            color: #FACC15; /* Biraz daha koyu bir sarı tonu (yellow-500) */
-            margin-top: 0.5rem;
-            margin-bottom: 1.5rem;
+        .yellow-btn:active {
+            transform: scale(0.98); /* Tıklama efekti */
         }
     </style>
 </head>
-<body class="min-h-screen w-full flex items-center justify-center p-4">
+<body>
+    <div class="h-screen w-full flex items-center justify-center p-4">
+        <div class="w-full max-w-6xl">
+            <!-- Başlık -->
+            <h1 class="text-5xl font-bold text-center mb-10 text-yellow-300">
+                Marmaris Sayacı
+            </h1>
 
-    <div class="w-full max-w-6xl">
-        <!-- Başlık -->
-        <h1 class="text-5xl font-bold text-center mb-10 text-yellow-300">
-            Marmaris Sayacı
-        </h1>
+            <!-- 
+                Düzen 'flex-wrap' (saran) yerine 'flex-row' (sarmayan) olarak değiştirildi.
+                Kartlar 'flex-1' (esne) and 'min-w-0' (küçülebilir) olarak ayarlandı.
+                'gap-6' -> 'gap-4' (daha az boşluk)
+            -->
+            <div class="flex flex-row gap-4 justify-center p-4">
+                
+                <!-- Sayaç 1: sarı -->
+                <div class="counter-card flex-1 min-w-0">
+                    <h2 class="counter-name text-lg">sarı</h2>
+                    <span id="counter-sari" class="counter-value text-4xl">0</span>
+                    <button id="btn-sari" class="yellow-btn">MUZ</button>
+                </div>
 
-        <!-- 5 Sayaç için Flexbox Yapısı -->
-        <div class="flex flex-row flex-wrap justify-center gap-6">
-            
-            <!-- Sayaç 1: sarı -->
-            <div class="counter-card w-full md:w-auto">
-                <h2 class="counter-name">sarı</h2>
-                <span id="counter-sari" class="counter-value">0</span>
-                <button id="btn-sari" class="yellow-btn">MUZ</button>
+                <!-- Sayaç 2: kutli -->
+                <div class="counter-card flex-1 min-w-0">
+                    <h2 class="counter-name text-lg">kutli</h2>
+                    <span id="counter-kutli" class="counter-value text-4xl">0</span>
+                    <button id="btn-kutli" class="yellow-btn">MUZ</button>
+                </div>
+
+                <!-- Sayaç 3: başkan -->
+                <div class="counter-card flex-1 min-w-0">
+                    <h2 class="counter-name text-lg">başkan</h2>
+                    <span id="counter-baskan" class="counter-value text-4xl">0</span>
+                    <button id="btn-baskan" class="yellow-btn">MUZ</button>
+                </div>
+
+                <!-- Sayaç 4: ogır -->
+                <div class="counter-card flex-1 min-w-0">
+                    <h2 class="counter-name text-lg">ogır</h2>
+                    <span id="counter-ogir" class="counter-value text-4xl">0</span>
+                    <button id="btn-ogir" class="yellow-btn">MUZ</button>
+                </div>
+
+                <!-- Sayaç 5: eno -->
+                <div class="counter-card flex-1 min-w-0">
+                    <h2 class="counter-name text-lg">eno</h2>
+                    <span id="counter-eno" class="counter-value text-4xl">0</span>
+                    <button id="btn-eno" class="yellow-btn">MUZ</button>
+                </div>
             </div>
 
-            <!-- Sayaç 2: kutli -->
-            <div class="counter-card w-full md:w-auto">
-                <h2 class="counter-name">kutli</h2>
-                <span id="counter-kutli" class="counter-value">0</span>
-                <button id="btn-kutli" class="yellow-btn">MUZ</button>
+            <!-- Yükleniyor Göstergesi -->
+            <div id="loading" class="text-center text-yellow-300 mt-4">
+                Veritabanına bağlanılıyor...
             </div>
-
-            <!-- Sayaç 3: başkan -->
-            <div class="counter-card w-full md:w-auto">
-                <h2 class="counter-name">başkan</h2>
-                <span id="counter-baskan" class="counter-value">0</span>
-                <button id="btn-baskan" class="yellow-btn">MUZ</button>
-            </div>
-
-            <!-- Sayaç 4: ogır -->
-            <div class="counter-card w-full md:w-auto">
-                <h2 class="counter-name">ogır</h2>
-                <span id="counter-ogir" class="counter-value">0</span>
-                <button id="btn-ogir" class="yellow-btn">MUZ</button>
-            </div>
-
-            <!-- Sayaç 5: eno -->
-            <div class="counter-card w-full md:w-auto">
-                <h2 class="counter-name">eno</h2>
-                <span id="counter-eno" class="counter-value">0</span>
-                <button id="btn-eno" class="yellow-btn">MUZ</button>
-            </div>
-
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Sayaçların isimlerini bir dizi olarak tutalım
-            const counterNames = ['sari', 'kutli', 'baskan', 'ogir', 'eno'];
+    <!-- Firebase SDK (Gerekli Modüller) -->
+    <script type="module">
+        // Firebase kütüphanelerini import et
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            signInAnonymously, 
+            signInWithCustomToken, 
+            onAuthStateChanged 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            getDoc,
+            setDoc, 
+            updateDoc, 
+            onSnapshot,
+            increment,
+            serverTimestamp,
+            setLogLevel
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-            // Her bir sayaç için gerekli işlemleri yapalım
-            counterNames.forEach(name => {
-                // Gerekli HTML elementlerini seçelim
-                const display = document.getElementById(`counter-${name}`);
-                const button = document.getElementById(`btn-${name}`);
-                
-                // localStorage için benzersiz bir anahtar (key) oluşturalım
-                const storageKey = `counter_${name}`;
+        // --- DEĞİŞKENLER ---
 
-                // Sayacın mevcut değerini localStorage'dan yükleyelim.
-                // Değer yoksa veya geçersizse 0 olarak başlatalım.
-                let count = parseInt(localStorage.getItem(storageKey)) || 0;
-                
-                // Ekrandaki değeri yüklenen değerle güncelleyelim
-                display.textContent = count;
+        // Firebase yapılandırmasını al
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'marmaris-sayac-default';
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-                // Butona tıklanma olayını ekleyelim
-                button.addEventListener('click', () => {
-                    count++; // Değeri 1 arttır
-                    display.textContent = count; // Ekrandaki değeri güncelle
-                    
-                    // Yeni değeri localStorage'a kaydet
-                    localStorage.setItem(storageKey, count);
-                });
-            });
+        // Sayaç isimleri ve ID'ler
+        const counterIds = ["sari", "kutli", "baskan", "ogir", "eno"];
+        
+        let db, auth;
+        let userId = null;
+        let countersDocRef; // Sayaç belgesinin referansı
+
+        // DOM Elementleri
+        const loadingIndicator = document.getElementById('loading');
+        const counterElements = {};
+        const buttonElements = {};
+
+        counterIds.forEach(id => {
+            counterElements[id] = document.getElementById(`counter-${id}`);
+            buttonElements[id] = document.getElementById(`btn-${id}`);
         });
-    </script>
 
+        // --- TEMEL FONKSİYONLAR ---
+
+        /**
+         * Sayaçları GUI üzerinde günceller.
+         * @param {object} counts - Firestore'dan gelen sayaç verisi (örn: {sari: 10, kutli: 5})
+         */
+        function updateUICounters(counts) {
+            if (!counts) return;
+
+            counterIds.forEach(id => {
+                if (counterElements[id]) {
+                    counterElements[id].textContent = counts[id] || 0;
+                }
+            });
+        }
+
+        /**
+         * Firestore'da ilgili sayacı 1 arttırır.
+         * @param {string} counterId - Arttırılacak sayacın ID'si (örn: "sari")
+         */
+        async function incrementCounter(counterId) {
+            if (!countersDocRef) return;
+
+            try {
+                // 'updateDoc' ve 'increment' kullanarak atomik olarak arttır
+                // Not: Alan adında tire (-) kullanamayız, bu yüzden ID'leri anahtar olarak kullanıyoruz.
+                // Örn: { sari: increment(1) }
+                const updates = {};
+                updates[counterId] = increment(1);
+                
+                await updateDoc(countersDocRef, updates);
+            } catch (error) {
+                console.error(`Sayaç (${counterId}) güncellenirken hata oluştu: `, error);
+                // Eğer belge bulunamazsa (ilk defa çalışıyorsa), setDoc ile yeniden oluşturmayı dene
+                if (error.code === 'not-found') {
+                    await initializeCounters();
+                }
+            }
+        }
+
+        /**
+         * Veritabanında sayaç belgesini 0'dan başlatır.
+         */
+        async function initializeCounters() {
+            if (!countersDocRef) return;
+            
+            console.log("Sayaç belgesi başlatılıyor...");
+            const initialData = {
+                sari: 0,
+                kutli: 0,
+                baskan: 0,
+                ogir: 0,
+                eno: 0,
+                createdAt: serverTimestamp() // İlk oluşturulma zamanı
+            };
+            
+            try {
+                // 'setDoc' ile 'merge: true' kullanarak var olan veriyi koru, eksikleri ekle
+                await setDoc(countersDocRef, initialData, { merge: true });
+            } catch (error) {
+                console.error("Sayaçlar başlatılırken hata: ", error);
+            }
+        }
+
+        /**
+         * Firestore veritabanını ve sayaçları dinlemeyi başlatır.
+         */
+        function setupFirestoreListeners() {
+            if (!userId) return;
+
+            // Herkesin aynı veriyi görmesi için 'public' yolu kullanıyoruz.
+            const docPath = `artifacts/${appId}/public/data/counters/allCounters`;
+            countersDocRef = doc(db, docPath);
+
+            // Değişiklikleri anlık olarak dinle
+            onSnapshot(countersDocRef, 
+                (docSnap) => {
+                    loadingIndicator.style.display = 'none'; // Yükleme bitti
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        updateUICounters(data);
+                    } else {
+                        // Belge (document) yoksa, tüm sayaçları 0'dan başlat
+                        console.log("Sayaç belgesi bulunamadı, yeniden oluşturuluyor...");
+                        initializeCounters();
+                        updateUICounters({}); // GUI'yi 0'la
+                    }
+                },
+                (error) => {
+                    console.error("Firestore dinlenirken hata: ", error);
+                    loadingIndicator.textContent = "Veritabanı bağlantı hatası.";
+                }
+            );
+        }
+
+        /**
+         * Firebase bağlantısını ve kimlik doğrulamasını başlatır.
+         */
+        async function initializeFirebase() {
+            if (!firebaseConfig || Object.keys(firebaseConfig).length === 0) {
+                console.error("Firebase yapılandırması bulunamadı.");
+                loadingIndicator.textContent = "Uygulama yapılandırması eksik.";
+                return;
+            }
+
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                setLogLevel('Debug'); // Hata ayıklama için
+
+                // Auth durumunu dinle
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        console.log("Kullanıcı doğrulandı:", user.uid);
+                        userId = user.uid;
+                        // Kullanıcı oturum açtıktan sonra Firestore dinleyicilerini başlat
+                        setupFirestoreListeners();
+                    } else {
+                        console.log("Kullanıcı oturumu kapalı.");
+                        userId = null;
+                    }
+                });
+
+                // Oturum açma işlemi
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+            } catch (error) {
+                console.error("Firebase başlatılırken hata: ", error);
+                loadingIndicator.textContent = "Uygulama başlatılamadı.";
+            }
+        }
+
+        // --- UYGULAMAYI BAŞLAT ---
+
+        // Butonlara tıklama olaylarını ekle
+        counterIds.forEach(id => {
+            if (buttonElements[id]) {
+                buttonElements[id].addEventListener('click', () => {
+                    incrementCounter(id);
+                });
+            }
+        });
+
+        // Firebase'i başlat
+        initializeFirebase();
+
+    </script>
 </body>
 </html>
-
 
 
