@@ -1,7 +1,131 @@
-<!-- ... (HTML'in üst kısmı ve stil bloğu değişmedi) ... -->
-<!-- ... (HTML'in üst kısmı ve stil bloğu değişmedi, en son istediğiniz 'yan yana küçülen' tasarım duruyor) ... -->
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Marmaris Sayacı</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Temel Sayfa Stili */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F0F0F; /* Siyaha yakın koyu gri */
+        }
+        
+        /* Sayaç Kartı Stili - Yan Yana Küçülen Düzen */
+        .counter-card {
+            background-color: #1A1A1A; /* Hafif daha açık bir koyu renk */
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 16px; /* Küçültülmüş padding */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px; /* Küçültülmüş boşluk */
+            /* min-width: 200px; KALDIRILDI - Küçülebilmeleri için */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
 
-<!-- ... <body> ve sayaç kutucukları ... -->
+        /* Sayaç İsmi Stili - Punto Tailwind ile yönetiliyor */
+        .counter-name {
+            font-weight: 600;
+            color: #E0E0E0; /* Tam beyaz değil, hafif kırık beyaz */
+            text-transform: capitalize;
+            white-space: nowrap; /* İsimlerin kaymasını engelle */
+        }
+
+        /* Sayaç Değeri Stili - Punto Tailwind ile yönetiliyor */
+        .counter-value {
+            font-weight: 700;
+            color: #FACC15; /* Sarı */
+            line-height: 1;
+        }
+
+        /* Sarı Buton Stili */
+        .yellow-btn {
+            background-color: #FACC15; /* Sarı */
+            color: #1A1A1A; /* Koyu renk yazı */
+            font-weight: 600;
+            font-size: 16px;
+            padding: 10px 24px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            white-space: nowrap; /* Buton yazısı kaymasın */
+        }
+
+        .yellow-btn:hover {
+            background-color: #FBBF24; /* Biraz daha koyu sarı */
+        }
+
+        .yellow-btn:active {
+            transform: scale(0.98); /* Tıklama efekti */
+        }
+    </style>
+</head>
+<body>
+    <div class="h-screen w-full flex flex-col items-center justify-center p-4">
+        <div class="w-full max-w-6xl">
+            <!-- Başlık -->
+            <h1 class="text-5xl font-bold text-center mb-10 text-yellow-300">
+                Marmaris Sayacı
+            </h1>
+
+            <!-- 
+                Yan yana ('flex-row'), sarmayan ve
+                küçülen ('flex-1 min-w-0') tasarım.
+            -->
+            <div class="flex flex-row gap-4 justify-center p-4">
+                
+                <!-- Sayaç 1: sarı -->
+                <div class="counter-card flex-1 min-w-0">
+                    <h2 class="counter-name text-lg">sarı</h2>
+                    <span id="counter-sari" class="counter-value text-4xl">0</span>
+                    <button id="btn-sari" class="yellow-btn">MUZ</button>
+                </div>
+
+                <!-- Sayaç 2: kutli -->
+                <div class="counter-card flex-1 min-w-0">
+                    <h2 class="counter-name text-lg">kutli</h2>
+                    <span id="counter-kutli" class="counter-value text-4xl">0</span>
+                    <button id="btn-kutli" class="yellow-btn">MUZ</button>
+                </div>
+
+                <!-- Sayaç 3: başkan -->
+                <div class="counter-card flex-1 min-w-0">
+                    <h2 class="counter-name text-lg">başkan</h2>
+                    <span id="counter-baskan" class="counter-value text-4xl">0</span>
+                    <button id="btn-baskan" class="yellow-btn">MUZ</button>
+                </div>
+
+                <!-- Sayaç 4: ogır -->
+                <div class="counter-card flex-1 min-w-0">
+                    <h2 class="counter-name text-lg">ogır</h2>
+                    <span id="counter-ogir" class="counter-value text-4xl">0</span>
+                    <button id="btn-ogir" class="yellow-btn">MUZ</button>
+                </div>
+
+                <!-- Sayaç 5: eno -->
+                <div class="counter-card flex-1 min-w-0">
+                    <h2 class="counter-name text-lg">eno</h2>
+                    <span id="counter-eno" class="counter-value text-4xl">0</span>
+                    <button id="btn-eno" class="yellow-btn">MUZ</button>
+                </div>
+            </div>
+
+            <!-- Yükleniyor Göstergesi -->
+            <div id="loading" class="text-center text-yellow-300 mt-4">
+                Veritabanına bağlanılıyor...
+            </div>
+        </div>
+    </div>
 
     <!-- Firebase SDK (Gerekli Modüller) -->
     <script type="module">
